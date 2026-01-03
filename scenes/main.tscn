@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1mbrubebvbj1"]
+
+[ext_resource type="Script" uid="uid://clqgq1n7v0ar" path="res://addons/card-framework/card_manager.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://6ams8uvg43gu" path="res://addons/card-framework/pile.gd" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://dj46jo3lfbclo" path="res://addons/card-framework/hand.gd" id="3_tbgi4"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CardManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_sugp2")
+debug_mode = true
+metadata/_custom_type_script = "uid://clqgq1n7v0ar"
+
+[node name="Deck" type="Control" parent="CardManager"]
+anchors_preset = 0
+offset_left = 900.0
+offset_top = 100.0
+offset_right = 940.0
+offset_bottom = 140.0
+script = ExtResource("2_jyhfs")
+metadata/_custom_type_script = "uid://6ams8uvg43gu"
+
+[node name="PlayerHand" type="Control" parent="CardManager"]
+anchors_preset = 0
+offset_left = 550.0
+offset_top = 450.0
+offset_right = 590.0
+offset_bottom = 490.0
+script = ExtResource("3_tbgi4")
+metadata/_custom_type_script = "uid://dj46jo3lfbclo"
+
+[node name="DealerHand" type="Control" parent="CardManager"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_tbgi4")
+metadata/_custom_type_script = "uid://dj46jo3lfbclo"
