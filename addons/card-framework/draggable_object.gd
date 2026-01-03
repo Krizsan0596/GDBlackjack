@@ -375,6 +375,7 @@ func return_to_original() -> void:
 
 
 func _handle_mouse_pressed() -> void:
+	return
 	is_pressed = true
 	match current_state:
 		DraggableState.HOVERING:

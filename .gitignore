@@ -2,3 +2,4 @@
 .godot/
 /android/
 build/
+/.nvim_build_cache
