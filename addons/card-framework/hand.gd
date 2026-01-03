@@ -49,7 +49,6 @@ extends CardContainer
 ## If true, only swap the positions of two cards when reordering (a <-> b), otherwise shift the range (default behavior).
 @export var swap_only_on_reorder := false
 
-
 var vertical_partitions_from_outside = []
 var vertical_partitions_from_inside = []
 
