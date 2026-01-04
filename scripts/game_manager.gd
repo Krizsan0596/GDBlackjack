@@ -9,6 +9,8 @@ extends Node2D
 @onready var outText = $UI/OutText
 @onready var hitButton = $UI/Hit
 @onready var standButton = $UI/Stand
+@onready var quitButton = $UI/Quit
+@onready var playAgainButton = $"UI/Play Again"
 
 enum gameState {
 	PLAYING, 
@@ -34,6 +36,10 @@ func _ready() -> void:
 	standButton.pressed.connect(_on_stand)
 	hitButton.visible = false
 	standButton.visible = false
+	quitButton.pressed.connect(_on_quit)
+	playAgainButton.pressed.connect(_on_play_again)
+	playAgainButton.visible = false
+	quitButton.visible = false
 	await get_tree().create_timer(1).timeout
 	setup_game()
 	playerScore = sum_hand(playerCards)
@@ -51,10 +57,16 @@ func _ready() -> void:
 
 func setup_game():
 	create_deck()
-
+	await get_tree().create_timer(.5).timeout
+	
+	await deal_cards()
+	
+func deal_cards():
 	for i in 2:
 		hit(playerHand)
+		await get_tree().create_timer(.2).timeout
 	hit(hiddenHand)
+	await get_tree().create_timer(.2).timeout
 	hit(dealerHand)
 	hitButton.visible = true
 	standButton.visible = true
@@ -94,6 +106,21 @@ func _on_stand():
 	standButton.visible = false
 	dealer_turn()
 
+func _on_play_again():
+	playAgainButton.visible = false
+	quitButton.visible = false
+	outText.text = ""
+	deck.undo(dealerCards)
+	deck.undo(playerCards)
+	deck.shuffle()
+	await get_tree().create_timer(.5).timeout
+	playerCards.clear()
+	dealerCards.clear()
+	deal_cards()
+
+func _on_quit():
+	get_tree().quit()
+
 func sum_hand(hand:Array) -> int:
 	var ace_count:int = 0
 	var sum:int = 0
@@ -114,6 +141,8 @@ func sum_hand(hand:Array) -> int:
 func game_end(end_state:gameState):
 	hitButton.visible = false
 	standButton.visible = false
+	quitButton.visible = true
+	playAgainButton.visible = true
 	if end_state == gameState.PLAYER_BUST:
 		outText.text = "You bust! Better luck next time!"
 	if end_state == gameState.DEALER_BUST:
@@ -133,10 +162,10 @@ func dealer_turn():
 	while dealerScore < 17:
 		hit(dealerHand)
 		await get_tree().create_timer(.2).timeout
-	if dealerScore > playerScore:
-		game_end(gameState.DEALER_WIN)
-	elif dealerScore < playerScore:
-		game_end(gameState.PLAYER_WIN)
-	elif dealerScore == playerScore:
-		game_end(gameState.PUSH)
-	pass
+	if dealerScore <= 21:
+		if dealerScore > playerScore:
+			game_end(gameState.DEALER_WIN)
+		elif dealerScore < playerScore:
+			game_end(gameState.PLAYER_WIN)
+		elif dealerScore == playerScore:
+			game_end(gameState.PUSH)

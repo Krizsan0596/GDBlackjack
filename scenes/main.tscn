@@ -39,6 +39,7 @@ card_face_up = false
 allow_card_movement = false
 restrict_to_top_card = false
 align_drop_zone_with_top_card = false
+enable_drop_zone = false
 metadata/_custom_type_script = "uid://6ams8uvg43gu"
 
 [node name="PlayerHand" type="Control" parent="CardManager"]
@@ -111,6 +112,36 @@ grow_horizontal = 0
 grow_vertical = 2
 action_mode = 0
 text = "Stand"
+
+[node name="Quit" type="Button" parent="UI"]
+custom_minimum_size = Vector2(60, 30)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 368.0
+offset_top = 90.0
+offset_right = 428.0
+offset_bottom = 121.0
+grow_vertical = 2
+action_mode = 0
+text = "Quit
+"
+
+[node name="Play Again" type="Button" parent="UI"]
+custom_minimum_size = Vector2(60, 30)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = 90.0
+offset_right = -380.0
+offset_bottom = 121.0
+grow_horizontal = 0
+grow_vertical = 2
+action_mode = 0
+text = "Play Again"
 
 [node name="OutText" type="Label" parent="UI"]
 anchors_preset = 7
